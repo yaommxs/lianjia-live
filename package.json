@@ -1,0 +1,42 @@
+{
+  "name": "lianjia-live",
+  "version": "1.0.0",
+  "description": "基于链家成都地区爬虫数据直播平台",
+  "scripts": {
+    "dev": "webpack --watch",
+    "start": "npm run dev"
+  },
+  "author": "yaommxs",
+  "license": "ISC",
+  "theme": {
+    "primary-color": "dark"
+  },
+  "dependencies": {
+    "antd": "^2.7.0",
+    "async": "^2.1.4",
+    "axios": "^0.15.3",
+    "body-parser": "^1.16.0",
+    "cheerio": "^0.22.0",
+    "express": "^4.14.1",
+    "less": "^2.7.2",
+    "mysql": "^2.13.0",
+    "node-xlsx": "^0.7.4",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "request": "^2.79.0",
+    "webpack": "^2.2.1",
+    "wifi-password": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-import": "^1.1.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "css-loader": "^0.26.1",
+    "file-loader": "^0.10.0",
+    "less-loader": "^2.2.3",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7"
+  }
+}

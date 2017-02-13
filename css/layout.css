@@ -1,0 +1,20 @@
+
+
+.area{
+  padding-right: 10px;
+  font-size: 20px;
+}
+.house_count{
+  padding: 0 10px;
+  font-size: 20px;
+}
+
+.ant-layout-content{
+  margin: 20px;
+}
+.anticon{
+  line-height: 48px;
+}
+body{
+  background-color: blue;
+}

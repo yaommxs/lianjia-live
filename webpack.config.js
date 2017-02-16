@@ -1,6 +1,6 @@
 var path = require('path');
 module.exports = {
-  entry: path.resolve(__dirname, './app/layout.js'),
+  entry: path.resolve(__dirname, './app/index.js'),
 
   output: {
     path: path.resolve(__dirname, './public/build'),

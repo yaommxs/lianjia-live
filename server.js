@@ -13,7 +13,7 @@ app.get('/',function(req,res){
 })
 
 app.post('/api/v1/itemlist',jsonParser,function (req, res) {
-  var page_size=15;
+  var page_size=20;
   var page_num=parseInt(req.body.p);
   var post_order=req.body.orderby;
   var offset=(page_num-1)*page_size;

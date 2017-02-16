@@ -4,10 +4,10 @@ var fs = require('fs');
 var async = require('async');
 var mysql = require('mysql');
 
-var baseurl='http://cd.lianjia.com/ershoufang/gaoxin7/pg'
+var baseurl='http://cd.lianjia.com/ershoufang/gaoxin7/pg';
 var urlArray=[];
 for (var i = 1; i <= 10; i++) {
-  var url=baseurl+i;
+  var url=baseurl+i+'co32/';
   urlArray.push(url);
 }
 

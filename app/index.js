@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './app.js'
+import App from './layout.js'
 
-// require('../css/style.css')
-
+import '../css/layout.css';
 
 ReactDOM.render(<App/>,document.getElementById('app'))

@@ -1,20 +1,77 @@
-
-
-.area{
-  padding-right: 10px;
-  font-size: 20px;
-}
-.house_count{
-  padding: 0 10px;
-  font-size: 20px;
-}
-
-.ant-layout-content{
-  margin: 20px;
-}
-.anticon{
-  line-height: 48px;
-}
 body{
-  background-color: blue;
+  background-color: #fefefe;
+}
+li{
+  list-style: none;
+}
+.fixnav{
+  /*position: fixed;*/
+}
+.header{
+  height: 70px;
+  line-height: 70px;
+  color: #fff;
+  font-size: 16px;
+  background-color: #15253e;
+}
+.headerlianjia{
+  padding: 5px 15px;
+  border-radius: 2px;
+  background-color: #fff;
+  color: #00c187;
+}
+.headercity{
+  padding: 5px 10px;
+  border-radius: 2px;
+  background-color: #fff;
+  color: #00c187;
+}
+.wraper{
+  width: 90%;
+  margin: 0 auto;
+}
+.ant-menu{
+  box-shadow: 0px 5px 2px #e2e8e5;
+}
+.ant-card-head{
+  font-size: 25px;
+  color: #00c187;
+}
+
+
+
+
+.digitcard{
+  margin-top: 40px;
+  height: 300px;
+  border: 1px solid #000;
+  background-color: #15253e;
+}
+.digittitle{
+  height: 60px;
+  background-color: #cdcaca;
+}
+
+.chartcard{
+  height: 600px;
+  margin-top: 40px;
+  border: 1px solid #000;
+}
+.datacard{
+  margin-top: 40px;
+}
+
+.pricestrong{
+  font-size: 24px;
+  color: #00c187;
+}
+
+.ant-pagination {
+  float: right;
+  padding: 30px 10px;
+}
+.footcard{
+  height: 100px;
+  margin-top: 40px;
+  background-color: #e3e3e3;
 }

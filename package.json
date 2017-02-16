@@ -8,9 +8,6 @@
   },
   "author": "yaommxs",
   "license": "ISC",
-  "theme": {
-    "primary-color": "dark"
-  },
   "dependencies": {
     "antd": "^2.7.0",
     "async": "^2.1.4",
@@ -24,8 +21,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "request": "^2.79.0",
-    "webpack": "^2.2.1",
-    "wifi-password": "^3.0.0"
+    "webpack": "^2.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",

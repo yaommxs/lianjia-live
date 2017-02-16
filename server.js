@@ -42,23 +42,34 @@ var getOrder=function (post_order){
   }
 }
 
+
+
+
 var getSqlResult=function (limit,offset,sqlCol,orderby,callback){
   var sql='select * from lianjialist';
+
   if (orderby=='time') {
     sql+=' limit '+limit+' offset '+offset;
   } else {
     sql+=' order by '+sqlCol+' '+orderby+' limit '+limit+' offset '+offset;
   }
   console.log(sql);
-  query(sql,function(err,rows,fields){
+  var total=0;
+  query('select count(*) from lianjialist',function(err,rows){
+    if (err) {
+      throw err;
+    }
+    total=rows[0]['count(*)'];
+  });
+
+  query(sql,function(err,rows){
     if (err) {
       console.log('读取失败');
       var result={code:0,total:0,items:[]};
       callback(result);
       throw err;
     }
-    var sql_total=fields[fields.length-1].length;
-    var result={code:1,total:sql_total,items:rows};
+    var result={code:1,total:total,items:rows};
     callback(result);
   });
 }

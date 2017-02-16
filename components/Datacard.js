@@ -49,15 +49,39 @@ export default class Datacard extends React.Component {
       dataIndex: 'price',
       key: 'price',
       render: (text) => <span><span className='pricestrong'>{text}</span>{' 万'}</span>
-    }, {
-      title: '连接',
-      dataIndex: 'price',
-      key: 'alink',
-      render: (text, record, index) => <a href={record.alink}>{text}</a>
-    }, {
+    },{
+      title: '单价',
+      dataIndex: 'unitprice',
+      key: 'unitprice'
+    },{
+      title: '地址',
+      dataIndex: 'title',
+      key: 'title',
+      render: (text,record) => <a href={record.alink} target='_blank'>{text}</a>
+    },{
+      title: '面积/平方',
+      dataIndex: 'square',
+      key: 'square'
+    },{
+      title: '户型',
+      dataIndex: 'roomcount',
+      key: 'roomcount'
+    },{
+      title: '朝向',
+      dataIndex: 'direction',
+      key: 'direction'
+    },{
       title: '关注度',
-      dataIndex: 'likes',
-      key: 'likes',
+      dataIndex: 'follow',
+      key: 'follow'
+    },{
+      title: '看房次数',
+      dataIndex: 'see',
+      key: 'see'
+    },{
+      title: '发布时间',
+      dataIndex: 'time',
+      key: 'time'
     }];
     return (
       <div className='datacard wraper'>

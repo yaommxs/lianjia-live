@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { BackTop,Affix } from 'antd';
 
 import Head from '../components/Head.js';
 import Digitcard from '../components/Digitcard.js';
@@ -20,7 +21,9 @@ class App extends React.Component {
     return (
 
       <div>
-        <Head></Head>
+        
+          <Head></Head>
+
         <Digitcard>
 
         </Digitcard>
@@ -33,8 +36,7 @@ class App extends React.Component {
         <Foot >
 
         </Foot>
-
-
+        <BackTop />
       </div>
     );
   }

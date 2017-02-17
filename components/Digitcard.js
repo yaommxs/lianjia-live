@@ -9,7 +9,6 @@ export default class Chartcard extends React.Component {
     return (
 
         <div className='digitcard wraper'>
-          <div className='digittitle'></div>
         </div>
 
     );

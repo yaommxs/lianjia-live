@@ -1,5 +1,5 @@
 create table `lianjialist` (
-  `id` int(8) not null,
+  `id` int(8) not null auto_increment,
   `price` int(8) not null,
   `unitprice` int(8) not null,
   `title` varchar(50) not null,

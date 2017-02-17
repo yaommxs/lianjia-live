@@ -4,8 +4,11 @@ body{
 li{
   list-style: none;
 }
-.fixnav{
-  /*position: fixed;*/
+.fixhead{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index:2;
 }
 .header{
   height: 70px;
@@ -42,14 +45,10 @@ li{
 
 
 .digitcard{
-  margin-top: 40px;
+  margin-top: 150px;
   height: 300px;
   border: 1px solid #000;
   background-color: #15253e;
-}
-.digittitle{
-  height: 60px;
-  background-color: #cdcaca;
 }
 
 .chartcard{
@@ -61,6 +60,10 @@ li{
   margin-top: 40px;
 }
 
+.sortbtngroup{
+  padding-bottom: 15px;
+}
+
 .pricestrong{
   font-size: 24px;
   color: #00c187;
@@ -69,6 +72,11 @@ li{
 .ant-pagination {
   float: right;
   padding: 30px 10px;
+}
+.ant-back-top-content{
+  position: absolute;
+  right: -85px;
+  background-color: #00c187;
 }
 .footcard{
   height: 100px;

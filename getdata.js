@@ -40,6 +40,7 @@ getpage('longquanyi',function(totalpage){
             var follow_=likearr[0].replace(/[^0-9]/ig,"");
             var see_=likearr[1].replace(/[^0-9]/ig,"");
             var time_=likearr[2].replace(/发布/g,"");
+
             perPriceArray.push({
               price:price_,
               unitprice:unitprice_,
@@ -62,26 +63,33 @@ getpage('longquanyi',function(totalpage){
         for (var j = 0; j < results[i].length; j++) {
           allHouse.push(results[i][j]);
         }
-      };
-
+      }
+      console.log(mysqlconfig);
       var connection = mysql.createConnection(mysqlconfig);
       connection.connect();
 
-      // connection.query('delete from lianjialist', function(errdel) {
-      //   if (err) throw err;
-      // });
+      connection.query('delete from lianjialist', function(errdel) {
+        if (errdel) {
+          console.log('删除失败');
+          throw errdel;
+        }
+        else {
+          console.log('删除成功');
+        }
+      })
+      console.log('开始插入');
 
-      async.eachSeries(allHouse, function (item, callback) {
-        connection.query('insert into lianjialist set ?', item,function (errinsert, res) {
-            callback(err, res);
-        });
-      }, function (err) {
-          if (err) {
-            throw err;
+      for (var i = 0; i < allHouse.length; i++) {
+        var perhouse=allHouse[i];
+        connection.query('insert into lianjialist set ?', perhouse,function (errinsert, res) {
+
+          if (errinsert) {
+            console.log('插入失败');
+            throw errinsert;
           }
-          console.log('ok');
-          connection.end();
-      });
+        })
+      }
+      connection.connect();
       // for (var i = 0; i < allHouse.length; i++) {
       //   var perHouse=allHouse[i];
       //   connection.query('insert into lianjialist set ?', perHouse, function(errinsert, result) {
@@ -91,7 +99,7 @@ getpage('longquanyi',function(totalpage){
 
 
 
-      console.log('共抓取到'+allHouse.length+'条房屋信息');
+      console.log('共抓取到'+allHouse.length+'条房屋信息')
   })
 
 

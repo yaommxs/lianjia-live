@@ -1,2 +1,6 @@
 node_modules
 npm-debug.log
+public/build/bundle.js
+showsql.js
+get-lianjia-xlsx.js
+mysqlconfig.js

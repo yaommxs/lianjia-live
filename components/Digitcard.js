@@ -1,16 +1,118 @@
 import React, {Component} from 'react';
+import echarts from 'echarts';
 
-export default class Chartcard extends React.Component {
+
+class Digitcard extends React.Component {
   constructor(props) {
     super(props);
+    this.state=({
+      pricealldata:[]
+    })
+  }
+  componentDidMount() {
+    //函数套函数，es6中箭头函数自动绑定this
+    this.props.getChartData('priceall',(data)=>{
+      this.setState({
+        pricealldata:data
+      });
+      this.renderPriceAllChart();
+    });
   }
 
   render() {
     return (
 
         <div className='digitcard wraper'>
+          <div className='digitcard-text'>
+
+          </div>
+          <div className='digitcard-chart' ref='chartcard'>
+
+          </div>
         </div>
 
     );
   }
+
+  renderPriceAllChart(){
+    const options = this.getOption();
+    const myChart = echarts.init(this.refs.chartcard);
+    myChart.setOption(options);
+  }
+
+  getOption() {
+    return {
+        title: {
+            text: '成华区——最近一季度二手房屋总价概率密度分布实时数据',
+            left: 'center',
+            textStyle:{
+              color:'#ccc',
+              fontWeight:'normal'
+            }
+        },
+
+        color: ['#00c187'],
+        textStyle:{
+          color:'#ababab',
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            name:'价格/万',
+            type:'category',
+            data: this.state.pricealldata.map(item=>item.price),
+            axisLine:{
+              onZero:false,
+              lineStyle:{
+                color:'#47816f'
+              }
+            },
+            axisTick:{
+              show:true
+            }
+        },
+        yAxis: {
+            name:'概率/百分之',
+            splitLine: {
+              lineStyle: {
+                  color: ['#2b456a'],
+                  type:'dashed'
+              }
+            },
+            axisLine:{
+              onZero:false,
+              lineStyle:{
+                color:'#47816f'
+              }
+            }
+        },
+        series: {
+            name: '概率',
+            type: 'line',
+            smooth:true,
+            symbol: 'none',
+            data: this.state.pricealldata.map(item=>item.f),
+            lineStyle:{
+              normal:{
+                width:1
+              }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(51, 196, 175)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(26, 149, 134)'
+                    }])
+                }
+            }
+        }
+    }
+  }
+
 }
+
+export default Digitcard;

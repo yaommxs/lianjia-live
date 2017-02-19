@@ -1,4 +1,5 @@
 var path = require('path');
+var webpack = require('webpack');
 module.exports = {
   entry: path.resolve(__dirname, './app/index.js'),
 
@@ -14,5 +15,18 @@ module.exports = {
       {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
       { test: /\.(png|jpg|gif)$/, loader: 'url-loader?limit=8192'}
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      mangle: true,
+      compress: {
+        warnings: false,
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    })
+  ]
 }

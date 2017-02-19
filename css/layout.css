@@ -1,9 +1,3 @@
-body{
-  background-color: #fefefe;
-}
-li{
-  list-style: none;
-}
 .fixhead{
   width: 100%;
   position: fixed;
@@ -30,7 +24,7 @@ li{
   color: #00c187;
 }
 .wraper{
-  width: 90%;
+  width: 1160px;
   margin: 0 auto;
 }
 .ant-menu{
@@ -42,24 +36,61 @@ li{
 }
 
 
-
-
 .digitcard{
   margin-top: 150px;
-  height: 300px;
-  border: 1px solid #000;
   background-color: #15253e;
 }
+.digitcard-text{
+  height: 100px;
+}
+.digitcard-chart{
+  height: 300px;
+}
 
+/*echarts start*/
 .chartcard{
-  height: 600px;
+  background-color: #15253e;
   margin-top: 40px;
-  border: 1px solid #000;
 }
-.datacard{
-  margin-top: 40px;
+.chartcard-item{
+  width: 1100px;
+  height: 350px;
+  margin: 0 auto;
+  border-bottom: 1px dashed #838383;
+}
+.chartcard-item:last-child{
+  border-bottom: 1px solid #15253e;
+  /*覆盖，和背景色相同，去除最后一条下划线*/
+}
+.chartcard-table,.chartcard-text{
+  width: 550px;
+  height: 350px;
+  padding-top: 40px;
+  float: left;
+
 }
 
+.chartcard-text{
+  font-size: 18px;
+  line-height: 50px;
+  color: #ccc;
+}
+.chartcard-text:nth-child(even){
+  padding-left: 100px;
+  text-align: left;
+}
+.chartcard-text:nth-child(odd){
+  padding-right: 100px;
+  text-align: right;
+}
+
+
+/* echarts end */
+
+.itemscard{
+  margin-top: 40px;
+
+}
 .sortbtngroup{
   padding-bottom: 15px;
 }
@@ -79,7 +110,7 @@ li{
   background-color: #00c187;
 }
 .footcard{
-  height: 100px;
+  height: 70px;
   margin-top: 40px;
-  background-color: #e3e3e3;
+  background-color: #15253e;
 }

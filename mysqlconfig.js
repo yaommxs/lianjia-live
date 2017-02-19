@@ -1,7 +1,7 @@
 var mysqlconfig={
     host: 'localhost',
     user: 'root',
-    password: 'xxx',
+    password: 'mysql940822',
     database: 'lianjia',
     port: 3306
 };

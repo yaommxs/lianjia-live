@@ -1,80 +1,81 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import { BackTop,Affix } from 'antd';
 import axios from 'axios';
-import { Rate,Pagination,Card,Button,Radio,Group,Icon}  from 'antd';
-const RadioGroup = Radio.Group;
-const RadioButton = Radio.Button;
-import '../less/lianjia.less';
 
-class App extends Component {
+import Head from '../components/Head.js';
+import Digitcard from '../components/Digitcard.js';
+import Chartcard from '../components/Chartcard.js';
+import Itemscard from '../components/Itemscard.js';
+import Foot from '../components/Foot.js';
 
-    constructor(props) {
-        super(props);
-        this.state={
-          currentpage:1,
-          total:0,
-          orderby:'time',
-          items:[]
-        }
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapsed: false,
+      collapsible:true
     }
-    postItems(page,order){
-      const request='http://localhost:3000/api/v1/itemlist';
-      axios.post(request,{p:page,orderby:order})
-      .then(res => {
-        this.setState({ currentpage:page,total:res.data.total,orderby:order,items:res.data.items});
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    }
+  }
 
-    componentDidMount(){
-      this.postItems(1,'time');
-    }
-    //页数改变
-    onChange(page) {
-      console.log(page);
-      this.postItems(page,this.state.orderby);
-    }
+  getChartData(charturl,callback){
+    var request='http://localhost:3000/api/v1/chart/'+charturl;
+    axios.get(request)
+    .then((res) => {
+      //加判断状态条件
+      callback(res.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
-    itemSort(order,e){
-      console.log(e.target);
-      // var btn_type=e.target.getAttribute("type");
-      // console.log(btn_type);
-      this.postItems(1,order);
-    }
-    render() {
-      let list=this.state.items.map((item) =>{
-        //map中尽量使用箭头函数，要不然就绑定this
-        return <li key={item.id}>价格：{item.price}万，链接：{item.alink}，关注度：{item.likes}</li>
-      })
+  postItemsData(page,orderitem,orderby,callback){
+    const request='http://localhost:3000/api/v1/itemlist';
+    axios.post(request,{p:page,orderitem:orderitem,orderby:orderby})
+    .then((res) => {
+      //加判断状态条件
+      callback(res.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
-      return (
-        <div>
-          <Card title="链家——成都高新区二手房爬虫数据实时排行">
-            <div>
-              <RadioGroup >
-                <RadioButton value='a' onClick={this.itemSort.bind(this,'time')}>最新<Icon type='clock-circle-o'/></RadioButton>
-                <RadioButton value='b' onClick={this.itemSort.bind(this,'up')}>升序<Icon type='up'/></RadioButton>
-                <RadioButton value='c' onClick={this.itemSort.bind(this,'down')}>降序<Icon type='down'/></RadioButton>
-              </RadioGroup>
+  postSearchData(word,callback){
+    const request='http://localhost:3000/api/v1/search';
+    axios.post(request,{word:word})
+    .then((res) => {
+        //加判断状态条件
+        callback(res.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
-              <div>
+  render() {
+    return (
 
-              </div>
-              <div>
+      <div>
 
-              </div>
-            </div>
+          <Head></Head>
 
+        <Digitcard getChartData={this.getChartData}>
 
-            {list}
-          </Card>
-          <Pagination current={this.state.currentpage} defaultPageSize={15} total={this.state.total} onChange={this.onChange.bind(this)}/>
+        </Digitcard>
+        <Chartcard getChartData={this.getChartData}>
 
-        </div>
-      );
-    }
+        </Chartcard>
+        <Itemscard postItemsData={this.postItemsData} postSearchData={this.postSearchData}>
 
+        </Itemscard>
+        <Foot >
+
+        </Foot>
+        <BackTop />
+      </div>
+    );
+  }
 }
-
 export default App;

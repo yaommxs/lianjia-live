@@ -9,9 +9,7 @@ var query=function(sql,callback){
             callback(err,null,null);
         }else{
             conn.query(sql,function(err,rows,fields){
-                //释放
                 conn.release();
-                //事件驱动回调
                 callback(err,rows,fields);
             });
         }

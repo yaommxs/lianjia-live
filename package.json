@@ -2,12 +2,20 @@
   "name": "lianjia-live",
   "version": "1.0.0",
   "description": "基于链家成都地区爬虫数据直播平台",
+  "main": "index.js",
   "scripts": {
     "dev": "webpack --watch",
     "start": "npm run dev"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaommxs/lianjia-live.git"
+  },
   "author": "yaommxs",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yaommxs/lianjia-live/issues"
+  },
   "dependencies": {
     "antd": "^2.7.0",
     "async": "^2.1.4",
@@ -18,7 +26,6 @@
     "express": "^4.14.1",
     "less": "^2.7.2",
     "mysql": "^2.13.0",
-    "node-xlsx": "^0.7.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "request": "^2.79.0",

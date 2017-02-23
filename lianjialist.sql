@@ -1,5 +1,4 @@
-create table `lianjialist` (
-  `id` int(8) not null,
+create table `gaoxin7` (
   `price` int(8) not null,
   `unitprice` int(8) not null,
   `title` varchar(50) not null,
@@ -9,6 +8,5 @@ create table `lianjialist` (
   `direction` varchar(5) not null,
   `follow` int(8) not null,
   `see` int(8) not null,
-  `time` varchar(10) not null,
-  primary key(`id`)
+  `time` varchar(10) not null
 ) charset=utf8;

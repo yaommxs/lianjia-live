@@ -14,39 +14,75 @@ app.get('/',function(req,res){
 })
 
 app.get('/api/v1/chart/priceall',function(req,res){
-  getPriceAllFreResult('lianjialist',function(result){
-    res.send(result);
-  })
+  var menukey=parseInt(req.query.menukey);
+  if (menukey<12) {
+    var table=menuKeyParseTable(menukey);
+    getPriceAllFreResult(table,function(result){
+      res.send(result);
+    })
+  }else {
+    res.send(null);
+  }
 })
 
 app.get('/api/v1/chart/price',function(req,res){
-  getPriceResult('lianjialist',function(result){
-    res.send(result);
-  })
+  var menukey=parseInt(req.query.menukey);
+  if (menukey<12) {
+    var table=menuKeyParseTable(menukey);
+    getPriceResult(table,function(result){
+      res.send(result);
+    })
+  }else {
+    res.send(null);
+  }
 })
 
 app.get('/api/v1/chart/unitprice',function(req,res){
-  getUnitPriceResult('lianjialist',function(result){
-    res.send(result);
-  })
+  var menukey=parseInt(req.query.menukey);
+  if (menukey<12) {
+    var table=menuKeyParseTable(menukey);
+    getUnitPriceResult(table,function(result){
+      res.send(result);
+    })
+  }else {
+    res.send(null);
+  }
 })
 
 app.get('/api/v1/chart/direction',function(req,res){
-  getDirectionResult('lianjialist',function(result){
-    res.send(result);
-  })
+  var menukey=parseInt(req.query.menukey);
+  if (menukey<12) {
+    var table=menuKeyParseTable(menukey);
+    getDirectionResult(table,function(result){
+      res.send(result);
+    })
+  }else {
+    res.send(null);
+  }
 })
 
 app.get('/api/v1/chart/roomcount',function(req,res){
-  getRoomCountResult('lianjialist',function(result){
-    res.send(result);
-  })
+  var menukey=parseInt(req.query.menukey);
+  if (menukey<12) {
+    var table=menuKeyParseTable(menukey);
+    getRoomCountResult(table,function(result){
+      res.send(result);
+    })
+  }else {
+    res.send(null);
+  }
 })
 
 app.get('/api/v1/chart/follow',function(req,res){
-  getFollowResult('lianjialist',function(result){
-    res.send(result);
-  })
+  var menukey=parseInt(req.query.menukey);
+  if (menukey<12) {
+    var table=menuKeyParseTable(menukey);
+    getFollowResult(table,function(result){
+      res.send(result);
+    })
+  }else {
+    res.send(null);
+  }
 })
 
 
@@ -55,22 +91,31 @@ app.post('/api/v1/itemlist',jsonParser,function (req, res) {
   var page_num=parseInt(req.body.p);
   var post_orderitem=req.body.orderitem;
   var post_orderby=req.body.orderby;
+  var post_menukey=parseInt(req.body.menukey);
   var offset=(page_num-1)*page_size;
 
-  if (page_num>=1) {
+  if ((page_num>=1)&&(post_menukey<12)) {
     var orderby=getOrderBy(post_orderby);
-    getSqlResult('lianjialist',page_size,offset,post_orderitem,orderby,function(result){
+    var table=menuKeyParseTable(post_menukey);
+    getSqlResult(table,page_size,offset,post_orderitem,orderby,function(result){
       res.send(result);
     });
+  }else {
+    res.send(null);
   }
-
 });
 
 app.post('/api/v1/search',jsonParser,function (req, res) {
   var word=req.body.word;
-  getSearchResult('lianjialist',word,function(result){
-    res.send(result);
-  })
+  var post_menukey=parseInt(req.body.menukey);
+  if (post_menukey<12) {
+    var table=menuKeyParseTable(post_menukey);
+    getSearchResult(table,word,function(result){
+      res.send(result);
+    })
+  }else {
+    res.send(null);
+  }
 })
 
 app.listen(3000);
@@ -96,7 +141,6 @@ var getSqlResult=function (table,limit,offset,sqlCol,orderby,callback){
   } else {
     sql+=' order by '+sqlCol+' '+orderby+' limit '+limit+' offset '+offset;
   }
-  console.log(sql);
 
   var getTotal=function(table,handleTotalCallback){
     query('select count(*) from '+table,function(err,rows){
@@ -110,7 +154,6 @@ var getSqlResult=function (table,limit,offset,sqlCol,orderby,callback){
   getTotal(table,function(total){
     query(sql,function(err,rows){
       if (err) {
-        console.log('读取失败');
         var result={code:0,total:0,items:[]};
         callback(result);
         throw err;
@@ -127,10 +170,8 @@ var getSqlResult=function (table,limit,offset,sqlCol,orderby,callback){
 
 var getSearchResult=function (table,word,callback){
   var sql="select * from "+table+" where title like '%"+word+"%'";
-  console.log(sql);
   query(sql,function(err,rows){
     if (err) {
-      console.log('搜索失败');
       var result={code:0,total:0,items:[]};
       callback(result);
       throw err;
@@ -163,7 +204,7 @@ var getPriceAllFreResult=function(table,frecb){
     for (var i = 0; i < result.length; i++) {
       var pricefre=(result[i].f)/pricetotalfre;
       pricefre=pricefre*100;
-      result[i].f=pricefre.toFixed(1);
+      result[i].f=pricefre.toFixed(2);
     }
     frecb(result);
   })
@@ -171,7 +212,6 @@ var getPriceAllFreResult=function(table,frecb){
 
 var getPriceResult =function(table,callback){
   var sql="select time,price from "+table;
-  console.log(sql);
   query(sql,function(err,rows){
     if (err) {
       callback(null);
@@ -184,7 +224,6 @@ var getPriceResult =function(table,callback){
 
 var getUnitPriceResult =function(table,callback){
   var sql="select time,unitprice from "+table+" limit 200 offset 0";
-  console.log(sql);
   query(sql,function(err,rows){
     if (err) {
       callback(null);
@@ -219,47 +258,41 @@ var getArrFrequency=function (array,name='name',value='value'){
 
 var getDirectionResult=function(table,callback){
   var sql="select direction from "+table;
-  console.log(sql);
   query(sql,function(err,rows){
     if (err) {
-      console.log('图表查询失败');
       callback(null);
       throw err;
     }
-    console.log(rows.length);
     var dirstr='';
     for (var i = 0; i < rows.length; i++) {
       dirstr+=rows[i].direction+' ';
     }
     var dirarr=dirstr.split(' ');
     var result=getArrFrequency(dirarr);
-    callback(result);
+    callback(result.slice(0,8));
   });
 }
 
 var getRoomCountResult=function(table,callback){
   var sql="select roomcount from "+table;
-  console.log(sql);
   query(sql,function(err,rows){
     if (err) {
-      console.log('图表查询失败');
       callback(null);
       throw err;
     }
-    console.log(rows.length);
     var roomstr='';
     for (var i = 0; i < rows.length; i++) {
       roomstr+=rows[i].roomcount+'|';
     }
     var roomarr=roomstr.split('|');
     var result=getArrFrequency(roomarr);
-    callback(result);
+
+    callback(result.slice(0,10));
   });
 }
 
 var getFollowResult =function(table,callback){
   var sql="select title,follow from "+table+" order by follow desc limit 10 offset 0";
-  console.log(sql);
   query(sql,function(err,rows){
     if (err) {
       callback(null);
@@ -268,4 +301,9 @@ var getFollowResult =function(table,callback){
     rows.reverse();
     callback(rows);
   });
+}
+
+var menuKeyParseTable=function(menukey){
+  var tableArray=['gaoxin7','qingyang','wuhou','jinjiang','chenghua','jinniu','tianfuxinqu','shuangliu','wenjiang','pidou','longquanyi','xindou'];
+  return tableArray[menukey];
 }

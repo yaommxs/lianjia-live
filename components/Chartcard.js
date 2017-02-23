@@ -5,75 +5,95 @@ class Chartcard extends React.Component {
   constructor(props) {
     super(props);
     this.state=({
+      menukey:0,
       pricedata:[],
       unitpricedata:[],
       directiondata:[],
-      roomcountdata:[],
+      roomcountdata:[{name:'',value:0},{name:'',value:0}],
       followdata:[]
     })
   }
 
-  renderPriceChart(){
-    this.props.getChartData('price',(data)=>{
+  renderPriceChart(menukey){
+    this.props.getChartData(menukey,'price',(data)=>{
       this.setState({
-        pricedata:data
-      });
-      const options0 = this.getOption0();
-      const myChart0 = echarts.init(this.refs.chartcard0);
-      myChart0.setOption(options0);
+        pricedata:data,
+        menukey:menukey
+      },()=>{
+        const options0 = this.getOption0();
+        const myChart0 = echarts.init(this.refs.chartcard0);
+        myChart0.setOption(options0);
+      })
     });
   }
 
-  renderUnitPriceChart(){
-    this.props.getChartData('unitprice',(data)=>{
+  renderUnitPriceChart(menukey){
+    this.props.getChartData(menukey,'unitprice',(data)=>{
       this.setState({
-        unitpricedata:data
-      });
-      const options1 = this.getOption1();
-      const myChart1 = echarts.init(this.refs.chartcard1);
-      myChart1.setOption(options1);
+        unitpricedata:data,
+        menukey:menukey
+      },()=>{
+        const options1 = this.getOption1();
+        const myChart1 = echarts.init(this.refs.chartcard1);
+        myChart1.setOption(options1);
+      })
     });
   }
 
-  renderDirectionChart(){
-    this.props.getChartData('direction',(data)=>{
+  renderDirectionChart(menukey){
+    this.props.getChartData(menukey,'direction',(data)=>{
       this.setState({
-        directiondata:data
-      });
-      const options2 = this.getOption2();
-      const myChart2 = echarts.init(this.refs.chartcard2);
-      myChart2.setOption(options2);
+        directiondata:data,
+        menukey:menukey
+      },()=>{
+        const options2 = this.getOption2();
+        const myChart2 = echarts.init(this.refs.chartcard2);
+        myChart2.setOption(options2);
+      })
     });
   }
 
-  RoomCountChart(){
-    this.props.getChartData('roomcount',(data)=>{
+  renderRoomCountChart(menukey){
+    this.props.getChartData(menukey,'roomcount',(data)=>{
       this.setState({
-        roomcountdata:data
-      });
-      const options3 = this.getOption3();
-      const myChart3 = echarts.init(this.refs.chartcard3);
-      myChart3.setOption(options3);
+        roomcountdata:data,
+        menukey:menukey
+      },()=>{
+        const options3 = this.getOption3();
+        const myChart3 = echarts.init(this.refs.chartcard3);
+        myChart3.setOption(options3);
+      })
     });
   }
 
-  renderFollowChart(){
-    this.props.getChartData('follow',(data)=>{
+  renderFollowChart(menukey){
+    this.props.getChartData(menukey,'follow',(data)=>{
       this.setState({
-        followdata:data
-      });
-      const options4 = this.getOption4();
-      const myChart4 = echarts.init(this.refs.chartcard4);
-      myChart4.setOption(options4);
+        followdata:data,
+        menukey:menukey
+      },()=>{
+        const options4 = this.getOption4();
+        const myChart4 = echarts.init(this.refs.chartcard4);
+        myChart4.setOption(options4);
+      })
     });
   }
 
   componentDidMount() {
-    this.renderPriceChart();
-    this.renderUnitPriceChart();
-    this.renderDirectionChart();
-    this.RoomCountChart();
-    this.renderFollowChart();
+    this.renderPriceChart(0);
+    this.renderUnitPriceChart(0);
+    this.renderDirectionChart(0);
+    this.renderRoomCountChart(0);
+    this.renderFollowChart(0);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.renderPriceChart(nextProps.menukey);
+    this.renderPriceChart(nextProps.menukey);
+    this.renderUnitPriceChart(nextProps.menukey);
+    this.renderDirectionChart(nextProps.menukey);
+    this.renderRoomCountChart(nextProps.menukey);
+    this.renderFollowChart(nextProps.menukey);
   }
 
   render() {
@@ -84,20 +104,20 @@ class Chartcard extends React.Component {
 
           </div>
           <div className='chartcard-text'>
-            <li>在链家成华区二手房近一周总价数据中：</li>
-            <li>最高价格为，在，我还是看看就好</li>
-            <li>最低价格为，在</li>
-            <li>5000</li>
-            <li>大部分房屋总价都在100万元左右，上下波动较大</li>
+            <li>在链家{this.menuKeyParseArea()}二手房近几月总价数据中：</li>
+            <li>最高价格为{Math.max.apply(null,this.state.pricedata.map(item=>item.price))}万</li>
+            <li>最低价格为{Math.min.apply(null,this.state.pricedata.map(item=>item.price))}万</li>
+            <li>大部分房屋总价都在300万元以下，较上波动较大</li>
+            <li>更多详细数据可在下方数据列表中排序查看</li>
           </div>
         </div>
         <div className='chartcard-item'>
           <div className='chartcard-text'>
-            <li>在链家成华区二手房近一周数据中：</li>
-            <li>最高价格为，在，我还是看看就好</li>
-            <li>最低价格为，在</li>
-            <li>5000</li>
-            <li>大部分房屋单价都在10000元左右，上下波动较大</li>
+            <li>在链家{this.menuKeyParseArea()}二手房近几天单价数据中：</li>
+            <li>最高价格为{Math.max.apply(null,this.state.unitpricedata.map(item=>item.unitprice))}元</li>
+            <li>最低价格为{Math.min.apply(null,this.state.unitpricedata.map(item=>item.unitprice))}元</li>
+            <li>大部分房屋单价都在2万元以下，上下波动都较大</li>
+            <li>更多详细数据可在下方数据列表中排序查看</li>
           </div>
           <div ref='chartcard1' className='chartcard-table'>
 
@@ -108,18 +128,20 @@ class Chartcard extends React.Component {
 
           </div>
           <div className='chartcard-text'>
-            <li>ssssssssssssssssssssssss</li>
-            <li>ssssssssssssssssssssssss</li>
-            <li>ssssssssssssssssssssssss</li>
-            <li>ssssssssssssssssssssssss</li>
+            <li>在链家{this.menuKeyParseArea()}二手房朝向分布数据中：</li>
+            <li>验证了传统风俗，坐北朝南的房子最多</li>
+            <li>朝东、东南方的房屋也不少</li>
+            <li>朝西边、北边的那种房子最少，原因大家都懂的...</li>
+            <li>鼠标移至饼状图可见具体分布比例</li>
           </div>
         </div>
         <div className='chartcard-item'>
           <div className='chartcard-text'>
-            <li>ssssssssssssssssssssssss</li>
-            <li>ssssssssssssssssssssssss</li>
-            <li>ssssssssssssssssssssssss</li>
-            <li>ssssssssssssssssssssssss</li>
+            <li>在链家{this.menuKeyParseArea()}二手房户型分布数据中：</li>
+            <li>{this.state.roomcountdata[0]["name"]}和{this.state.roomcountdata[1]["name"]}的户型最抢手</li>
+            <li>适合青年朋友居住，毕竟经济适用型</li>
+            <li>当然还有少部分车位也在售卖中</li>
+            <li>鼠标移至饼状图可见具体分布比例</li>
           </div>
           <div ref='chartcard3' className='chartcard-table'>
 
@@ -130,10 +152,10 @@ class Chartcard extends React.Component {
 
           </div>
           <div className='chartcard-text'>
-            <li>ssssssssssssssssssssssss</li>
-            <li>ssssssssssssssssssssssss</li>
-            <li>ssssssssssssssssssssssss</li>
-            <li>ssssssssssssssssssssssss</li>
+            <li>为避免广告嫌疑</li>
+            <li>此处无文案...</li>
+            <li>排名先后仅供参考</li>
+            <li>更多详细数据可在下方数据列表中排序查看</li>
           </div>
         </div>
 
@@ -141,10 +163,16 @@ class Chartcard extends React.Component {
     );
   }
 
+  menuKeyParseArea() {
+    const menuitems=['高新','青羊','武侯','锦江','成华','金牛','天府新区','双流','温江','郫都','龙泉驿','新都'];
+    return menuitems[this.state.menukey];
+
+  }
+
   getOption0() {
     return {
         title: {
-            text: '成华区——最近一季度二手房屋总价实时数据',
+            text: this.menuKeyParseArea()+'区——二手房屋总价实时数据',
             left: 'center',
             textStyle:{
               color:'#ccc',
@@ -205,7 +233,7 @@ class Chartcard extends React.Component {
   getOption1() {
     return {
         title: {
-            text: '成华区——最近一周房屋单价实时数据',
+            text: this.menuKeyParseArea()+'区——近期房屋单价实时数据',
             left: 'center',
             textStyle:{
               color:'#ccc',
@@ -266,7 +294,7 @@ class Chartcard extends React.Component {
   getOption2(){
     return {
         title: {
-            text: '成华区——房屋朝向分布比例',
+            text: this.menuKeyParseArea()+'区——房屋朝向分布比例',
             left: 'center',
             textStyle:{
               color:'#ccc',
@@ -311,7 +339,7 @@ class Chartcard extends React.Component {
   getOption3(){
     return {
         title: {
-            text: '成华区——房屋户型分布比例',
+            text: this.menuKeyParseArea()+'区——房屋户型分布比例',
             left: 'center',
             textStyle:{
               color:'#ccc',
@@ -328,7 +356,7 @@ class Chartcard extends React.Component {
             {
                 name:'户型/个',
                 type:'pie',
-                startAngle:340,
+                startAngle:180,
                 radius : '60%',
                 center: ['50%', '50%'],
                 data:this.state.roomcountdata,
@@ -358,7 +386,7 @@ class Chartcard extends React.Component {
     return {
       title: {
           left:'center',
-          text: '成华区——最受关注的二手房屋TOP10',
+          text: this.menuKeyParseArea()+'区——最受关注的二手房屋TOP10',
           textStyle:{
             color:'#ccc',
             fontWeight:'normal'

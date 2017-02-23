@@ -6,44 +6,54 @@ class Digitcard extends React.Component {
   constructor(props) {
     super(props);
     this.state=({
-      pricealldata:[]
+      pricealldata:[],
+      menukey:0
     })
+
   }
-  componentDidMount() {
-    //函数套函数，es6中箭头函数自动绑定this
-    this.props.getChartData('priceall',(data)=>{
+
+  renderPriceAllChart(menukey){
+    this.props.getChartData(menukey,'priceall',(data)=>{
       this.setState({
-        pricealldata:data
-      });
-      this.renderPriceAllChart();
+        pricealldata:data,
+        menukey:menukey
+      },()=>{
+        var options = this.getOption();
+        var myChart = echarts.init(this.refs.chartcard);
+        myChart.setOption(options);
+      })
     });
+  }
+
+  componentDidMount() {
+    this.renderPriceAllChart(0);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.renderPriceAllChart(nextProps.menukey)
   }
 
   render() {
     return (
-
         <div className='digitcard wraper'>
           <div className='digitcard-text'>
-
+            公告：数据每日更新,时间可能会有延迟，信息仅供参考，感谢阅读！
           </div>
-          <div className='digitcard-chart' ref='chartcard'>
-
-          </div>
+          <div className='digitcard-chart' ref='chartcard'></div>
         </div>
 
     );
   }
 
-  renderPriceAllChart(){
-    const options = this.getOption();
-    const myChart = echarts.init(this.refs.chartcard);
-    myChart.setOption(options);
+  menuKeyParseArea() {
+    const menuitems=['高新','青羊','武侯','锦江','成华','金牛','天府新区','双流','温江','郫都','龙泉驿','新都'];
+    return menuitems[this.state.menukey];
   }
 
   getOption() {
     return {
         title: {
-            text: '成华区——最近一季度二手房屋总价概率密度分布实时数据',
+            text: this.menuKeyParseArea()+'区——近期二手房屋总价概率密度分布',
             left: 'center',
             textStyle:{
               color:'#ccc',

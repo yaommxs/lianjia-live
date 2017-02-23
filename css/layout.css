@@ -34,19 +34,28 @@
   font-size: 25px;
   color: #00c187;
 }
-
-
+.fullscreenbtn,.exitbtn{
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  z-index:3;
+  top:76px;
+  right:20px;
+}
 .digitcard{
   margin-top: 150px;
   background-color: #15253e;
 }
 .digitcard-text{
+  color: #ffdb80;
+  font-size: 20px;
+  text-align: center;
+  line-height: 100px;
   height: 100px;
 }
 .digitcard-chart{
   height: 300px;
 }
-
 /*echarts start*/
 .chartcard{
   background-color: #15253e;
@@ -67,9 +76,7 @@
   height: 350px;
   padding-top: 40px;
   float: left;
-
 }
-
 .chartcard-text{
   font-size: 18px;
   line-height: 50px;
@@ -83,34 +90,44 @@
   padding-right: 100px;
   text-align: right;
 }
-
-
 /* echarts end */
-
 .itemscard{
   margin-top: 40px;
-
 }
 .sortbtngroup{
   padding-bottom: 15px;
 }
-
 .pricestrong{
   font-size: 24px;
   color: #00c187;
 }
-
 .ant-pagination {
   float: right;
   padding: 30px 10px;
 }
 .ant-back-top-content{
-  position: absolute;
+  position: relative;;
   right: -85px;
+  top:28px;
   background-color: #00c187;
 }
 .footcard{
-  height: 70px;
+  height: 80px;
+  padding: 10px 0;
   margin-top: 40px;
   background-color: #15253e;
+}
+.foot-wraper{
+  position: relative;
+}
+.foot-left{
+  color:#ccc;
+  line-height:20px;
+  position: absolute;
+}
+.wechat{
+  right: 0;
+  width: 60px;
+  height: 60px;
+  position: absolute;
 }

@@ -9,6 +9,7 @@ class Itemscard extends React.Component {
   constructor(props) {
       super(props);
       this.state={
+        menukey:0,
         issearch:false,
         currentpage:1,
         onbtn:'9',
@@ -20,9 +21,9 @@ class Itemscard extends React.Component {
   }
   //renderPostItemsData函数中有回调函数，一般数据render(setState)完也就了事
   //但是要拿dom做别的事的话就得再次用回调封装render,比如echarts
-  renderPostItemsData(page,orderitem,orderby){
+  renderPostItemsData(menukey,page,orderitem,orderby){
     //函数套函数，es6中箭头函数自动绑定this
-    this.props.postItemsData(page,orderitem,orderby,(data)=>{
+    this.props.postItemsData(menukey,page,orderitem,orderby,(data)=>{
       this.setState({
         currentpage:page,
         total:data.total,
@@ -35,7 +36,7 @@ class Itemscard extends React.Component {
   }
 
   renderSearchData(word){
-    this.props.postSearchData(word,(data)=>{
+    this.props.postSearchData(this.state.menukey,word,(data)=>{
       this.setState({
         issearch:data.total?true:false,
         currentpage:0,
@@ -49,11 +50,28 @@ class Itemscard extends React.Component {
 
   //数据第一次render
   componentDidMount(){
-    this.renderPostItemsData(1,this.state.orderitem,this.state.orderby);
+    this.renderPostItemsData(0,1,this.state.orderitem,this.state.orderby);
+  }
+
+  //父级属性更新
+  componentWillReceiveProps(nextProps) {
+    //函数套函数，es6中箭头函数自动绑定this
+    this.setState({
+      menukey:nextProps.menukey,
+      issearch:false,
+      currentpage:1,
+      onbtn:'9',
+      total:0,
+      orderitem:'time',
+      orderby:'down',
+      items:[]
+    },()=>{
+      this.renderPostItemsData(this.state.menukey,1,this.state.orderitem,this.state.orderby)
+    })
   }
   //页数改变
   changePage(page) {
-    this.renderPostItemsData(page,this.state.orderitem,this.state.orderby);
+    this.renderPostItemsData(this.state.menukey,page,this.state.orderitem,this.state.orderby);
   }
   //排序
   itemSort(e){
@@ -66,7 +84,7 @@ class Itemscard extends React.Component {
     if (this.state.issearch) {
       this.itemAfterSearchSort(orderitem,orderby);
     }else {
-      this.renderPostItemsData(1,orderitem,orderby);
+      this.renderPostItemsData(this.state.menukey,1,orderitem,orderby);
     }
   }
   // 搜索之后的排序没去后端请求了，直接在state里拿
@@ -116,7 +134,7 @@ class Itemscard extends React.Component {
       title: '地址',
       dataIndex: 'title',
       key: 'title',
-      render: (text,record) => <a href={record.alink} target='_blank'>{text}</a>
+      render: (text,record) => <a href={record.alink} >{text}</a>
     },{
       title: '面积/平方',
       dataIndex: 'square',
@@ -161,7 +179,7 @@ class Itemscard extends React.Component {
             </RadioGroup>
             <Search style={{width:250,float:'right'}} size='large' placeholder="搜索房源..." onSearch={this.searchHouse.bind(this)} />
           </div>
-          <Table columns={columns} dataSource={datatop} locale={empty} pagination={false} size='small' rowKey={(record) => record.id}/>
+          <Table columns={columns} dataSource={datatop} locale={empty} pagination={false} size='small' rowKey={(record) => record.alink}/>
           <Pagination current={this.state.currentpage} defaultPageSize={20}
           total={this.state.total} onChange={this.changePage.bind(this)} showQuickJumper={true}/>
         </Card>

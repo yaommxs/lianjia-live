@@ -13,9 +13,10 @@ module.exports = {
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
       { test: /\.css$/, loader: 'style-loader!css-loader'},
       {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
-      { test: /\.(png|jpg|gif)$/, loader: 'url-loader?limit=8192'}
+      { test: /\.(png|jpg|gif|ico)$/, loader: 'url-loader?limit=8192'}
     ]
-  },
+  }
+  ,
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,

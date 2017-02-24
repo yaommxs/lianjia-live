@@ -9,7 +9,7 @@ var pullareadata = require('./pullareadata')
 // },function(){
 //
 // })
-var area='gaoxin7';
+var area='xindou';
 pullareadata(area,function(result){
   console.log(area+'：'+result.length+'条数据');
   var connection = mysql.createConnection(mysqlconfig);

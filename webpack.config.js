@@ -15,8 +15,7 @@ module.exports = {
       {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
       { test: /\.(png|jpg|gif|ico)$/, loader: 'url-loader?limit=8192'}
     ]
-  }
-  ,
+  },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,

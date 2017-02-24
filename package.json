@@ -22,6 +22,7 @@
     "axios": "^0.15.3",
     "body-parser": "^1.16.0",
     "cheerio": "^0.22.0",
+    "compression": "^1.6.2",
     "echarts": "^3.4.0",
     "express": "^4.14.1",
     "less": "^2.7.2",

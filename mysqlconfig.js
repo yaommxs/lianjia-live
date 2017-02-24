@@ -1,5 +1,5 @@
 var mysqlconfig={
-    host: 'localhost',
+    host: 'xxx',
     user: 'root',
     password: 'xxx',
     database: 'lianjia',

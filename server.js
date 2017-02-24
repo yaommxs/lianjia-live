@@ -1,11 +1,14 @@
 var express = require('express');
+var compression = require('compression')
 var app = express();
 var query=require("./mysqlpool.js");
+var serverconfig=require("./serverconfig.js");
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json()
 var async = require('async');
 
-console.log('site on localhost:3000');
+console.log('site on lianjia.yaommxs.cn');
+app.use(compression());
 app.use(express.static('./public/build'));
 app.use(express.static('./public/images'));
 
@@ -118,7 +121,7 @@ app.post('/api/v1/search',jsonParser,function (req, res) {
   }
 })
 
-app.listen(3000);
+app.listen(serverconfig);
 
 var getOrderBy=function (post_orderby){
   switch (post_orderby) {

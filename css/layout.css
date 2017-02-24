@@ -5,6 +5,7 @@
   z-index:2;
 }
 .header{
+  width: 1349px;
   height: 70px;
   line-height: 70px;
   color: #fff;
@@ -81,6 +82,7 @@
   font-size: 18px;
   line-height: 50px;
   color: #ccc;
+  font-weight: none;
 }
 .chartcard-text:nth-child(even){
   padding-left: 100px;
@@ -106,28 +108,26 @@
   padding: 30px 10px;
 }
 .ant-back-top-content{
-  position: relative;;
+  position: relative;
   right: -85px;
   top:28px;
   background-color: #00c187;
 }
 .footcard{
+  position: relative;
+  top: 40px;
   height: 80px;
   padding: 10px 0;
-  margin-top: 40px;
   background-color: #15253e;
 }
-.foot-wraper{
-  position: relative;
-}
 .foot-left{
+  float: left;
+  height: 60px;
   color:#ccc;
   line-height:20px;
-  position: absolute;
 }
 .wechat{
-  right: 0;
+  float: right;
   width: 60px;
   height: 60px;
-  position: absolute;
 }
